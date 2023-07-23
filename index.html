@@ -5,8 +5,24 @@
         <link rel="stylesheet" type = "text/css" href = "des.css">
     </head>
     <body>
-        <h1>Movie Details Application</h1>
-        
+        <h2 style = "text-align: center;">Movie Details Application</h2>
+        <div id = "searchbox">
+            <p>
+                Search By Title: 
+                <input id = "titlefield" type = "text" placeholder="Movie Title Here..">
+                <input id = "pagefield" type = "text" placeholder="Page No."> 
+                <button id = "searchbyname" onclick="searchMovies()">Search!</button>
+            </p>
+            <p>
+                Search By Id: 
+                <input id = "idfield" type = "text" placeholder="Movie ID Here..">
+                <button id = "searchbyid" onclick="searchMoviesID()">Search!</button>
+            </p>
+        </div>
+        <div id="main">
+   
+        </div>
+
         <script src="index.js"></script>
     </body>
 </html>
