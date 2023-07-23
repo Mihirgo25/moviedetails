@@ -22,10 +22,13 @@ function fetchMovies(query, page) {
 
 function displayMovies(movies) {
     const movieListElement = document.getElementById("main");
-    movieListElement.innerHTML = '';
+    movieListElement.innerHTML = '<div id = "movieprev"></div><div id = "movienext"></div>';
     const movieDetailsElement = document.getElementById('moviedet');
     movieDetailsElement.innerHTML = '';
-
+    const movieprevpage = document.getElementById('movieprev');
+    movieprevpage.innerHTML = '<button onclick = "gotoprev()">Previous</button>';
+    const movienextpage = document.getElementById('movienext');
+    movienextpage.innerHTML = '<button onclick = "gotonext()">Next</button>';
     movies.forEach(movie => {
         const movieItem = document.createElement('div');
         movieItem.classList.add('movie-item');
@@ -39,7 +42,11 @@ function displayMovies(movies) {
             displayMovieDetails(currentMovieID);
         });
         movieListElement.appendChild(movieItem);
+        
     });
+    movieListElement.appendChild(movieprevpage);
+    movieListElement.appendChild(movienextpage);
+
 }
 
 function searchMovies() {
@@ -66,7 +73,7 @@ function searchMoviesID() {
         displayMovieDetails(query);
     }
     else{
-        displayMovieDetails("tt3896198");
+        displayMovieDetails("tt11032374");
     }
     query = "";
 }
@@ -85,7 +92,7 @@ function displayMovieDetails(movieID) {
 
             const movieDetailsElement = document.getElementById('moviedet');
             movieDetailsElement.innerHTML = `
-            <h3>${data.Title}</h3>
+            <h3>${data.Title} <br><br><br> ID: ${data.imdbID}</h3>
             <img src="${data.Poster}" alt="${data.Title}">
             <p><strong>Plot:</strong><br>${data.Plot}</p>
             <p><strong>Cast:</strong> ${data.Actors}</p>
