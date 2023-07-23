@@ -60,7 +60,7 @@ function addrating(){
     const rateInput = document.getElementById('rateInp');
     const rating = rateInput.value;
     const rate = parseFloat(rating, 10);
-    if(0 <= rate <= 10){
+    if(0 <= rate && rate <= 10){
         userratelist.set(id, rate);
         console.log(userratelist);
         localStorage.setItem("userratelist", JSON.stringify(userratelist));
@@ -188,4 +188,9 @@ function gotonext(){
         .catch(err => {
             console.error('Error fetching data from OMDB API:', err);
         });    
+}
+
+function loadall(){
+    console.log(userratelist);
+    console.log(userreviewlist);
 }
