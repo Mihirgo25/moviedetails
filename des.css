@@ -17,6 +17,16 @@ body{
     grid-template-columns: 400px 400px 400px;
 }
 
+#movieprev {
+    padding-left: 200px;
+    padding-top: 180px;
+}
+
+#movienext {
+    padding-left: 200px;
+    padding-top: 180px;
+}
+
 .movie-poster{
     width: 250px;
     height: 400px;

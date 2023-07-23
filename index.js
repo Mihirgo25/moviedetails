@@ -1,71 +1,8 @@
 const apiKey = "61a2bc53";
-let usermovielist = {};
-function fetchMovies(query, page) {
-    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}&page=${page}`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.Response === 'True') {
-                console.log(data)
-                totalResults = parseInt(data.totalResults);
-                displayMovies(data.Search);
-            } else {
-                console.log('No results found.');
-            }
-        })
-        .catch(err => {
-            console.error('Error fetching data from OMDB API:', err);
-        });
-}
-
-
-function displayMovies(movies) {
-    const movieListElement = document.getElementById("main");
-    movieListElement.innerHTML = '<div id = "movieprev"></div><div id = "movienext"></div>';
-    const movieDetailsElement = document.getElementById('moviedet');
-    movieDetailsElement.innerHTML = '';
-    const movieprevpage = document.getElementById('movieprev');
-    movieprevpage.innerHTML = '<button onclick = "gotoprev()">Previous</button>';
-    const movienextpage = document.getElementById('movienext');
-    movienextpage.innerHTML = '<button onclick = "gotonext()">Next</button>';
-    movies.forEach(movie => {
-        const movieItem = document.createElement('div');
-        movieItem.classList.add('movie-item');
-        movieItem.innerHTML = `
-        <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}">
-        <h2>${movie.Title}</h2>
-        `;
-        movieItem.addEventListener('click', function () {
-            currentMovieID = movie.imdbID;
-            console.log(currentMovieID)
-            displayMovieDetails(currentMovieID);
-        });
-        movieListElement.appendChild(movieItem);
-        
-    });
-    movieListElement.appendChild(movieprevpage);
-    movieListElement.appendChild(movienextpage);
-
-}
-
-function searchMovies() {
-    const queryInp = document.getElementById('titlefield');
-    const pageInp = document.getElementById('pagefield');
-    const query = queryInp.value;
-    const page = pageInp.value;
-    if (query !== '') {
-        if(page == ''){
-            page = "1";
-        }
-        fetchMovies(query, page);
-    }
-    else{
-        fetchMovies("One Piece", "1");
-    }
-    queryInp.value = "";
-    pageInp.value = "";
-}
+var prevpageno = 0;
+var nextpageno = 0;
+var currpageno = 0;
+let usermovielist = new Map();
 
 function searchMoviesID() {
     var query = document.getElementById('idfield').value;
@@ -77,8 +14,6 @@ function searchMoviesID() {
     }
     query = "";
 }
-
-
 
 function displayMovieDetails(movieID) {
     const url = `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}`;
@@ -111,13 +46,127 @@ function displayMovieDetails(movieID) {
 function addreview(value){
     const reviewInput = document.getElementById('reviewInp');
     const review = reviewInput.value();
+    usermovielist.set(value, review);
+    const movieDetailsElement = document.getElementById('moviedet');
+    movieDetailsElement.innerHTML += `<p>User Review: ${userreviews.get(value)}</p>`
+}
 
-    if(userreviews[value] == null){
-        userreviews[value] = review; 
+function searchMovies() {
+    var queryInp = document.getElementById('titlefield');
+    var pageInp = document.getElementById('pagefield');
+    var query = queryInp.value;
+    var page = pageInp.value;
+    currpageno = parseInt(page);
+    prevpageno = currpageno - 1;
+    nextpageno = currpageno + 1;
+    if (query !== '') {
+        if(page == ''){
+            page = "1";
+        }
+        
     }
     else{
-        const movieDetailsElement = document.getElementById('moviedet');
-        movieDetailsElement.innerHTML += `<p>User Review: ${userreviews[value]}</p>`
+        query = "One Piece";
     }
+    fetchMovies(query, page);
+}
 
+function fetchMovies(query, page) {
+    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}&page=${page}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.Response === 'True') {
+                console.log(data)
+                totalResults = parseInt(data.totalResults);
+                displayMovies(data.Search);
+            } else {
+                console.log('No results found.');
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching data from OMDB API:', err);
+        });
+}
+
+
+function displayMovies(movies) {
+    const movieListElement = document.getElementById("main");
+    movieListElement.innerHTML = '';
+    const movieDetailsElement = document.getElementById('moviedet');
+    movieDetailsElement.innerHTML = '';
+    movies.forEach(movie => {
+        const movieItem = document.createElement('div');
+        movieItem.classList.add('movie-item');
+        movieItem.innerHTML = `
+        <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}">
+        <h2>${movie.Title}</h2>
+        `;
+        movieItem.addEventListener('click', function () {
+            currentMovieID = movie.imdbID;
+            console.log(currentMovieID)
+            displayMovieDetails(currentMovieID);
+        });
+        movieListElement.appendChild(movieItem);
+        
+    });
+
+}
+
+function gotoprev(){
+    var queryInp = document.getElementById('titlefield');
+    var query = queryInp.value;
+    if(prevpageno != 0){
+        currpageno--;
+        prevpageno--;
+        nextpageno--;
+    }
+    if (query == '') {
+        query = "One Piece";
+    }
+    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}&page=${currpageno}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.Response === 'True') {
+                console.log(data)
+                totalResults = parseInt(data.totalResults);
+                displayMovies(data.Search);
+            } else {
+                console.log('No results found.');
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching data from OMDB API:', err);
+        });
+    
+}
+
+function gotonext(){
+    var queryInp = document.getElementById('titlefield');
+    var query = queryInp.value;
+    currpageno++;
+    nextpageno++;
+    prevpageno++;
+
+    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}&page=${currpageno}`;
+    if (query == '') {
+        const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=One_Piece&page=${currpageno}`;
+    }
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.Response === 'True') {
+                console.log(data)
+                totalResults = parseInt(data.totalResults);
+                displayMovies(data.Search);
+            } else {
+                console.log('No results found.');
+            }
+        })
+        .catch(err => {
+            console.error('Error fetching data from OMDB API:', err);
+        });    
 }
