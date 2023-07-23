@@ -58,10 +58,16 @@ function addreview(){
 
 function addrating(){
     const rateInput = document.getElementById('rateInp');
-    const rate = rateInput.value;
-    userratelist.set(id, rate);
-    console.log(userratelist);
-    localStorage.setItem("userratelist", JSON.stringify(userratelist));
+    const rating = rateInput.value;
+    const rate = parseFloat(rating, 10);
+    if(0 <= rate <= 10){
+        userratelist.set(id, rate);
+        console.log(userratelist);
+        localStorage.setItem("userratelist", JSON.stringify(userratelist));
+    }
+    else{
+        console.log("Error! Please Enter valid Rating!");
+    }
     rateInput.value = "";
 }
 
