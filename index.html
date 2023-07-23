@@ -9,18 +9,22 @@
     <body>
         <div class = "cont">
             <h2 style = "text-align: center;">Movie Details Application</h2>
-            <div id = "searchbox" style = "display: flex; flex-direction: row;">
-                <div><p>
-                    Search By Title: 
-                    <input id = "titlefield" type = "text" placeholder="Movie Title Here..">
-                    <input id = "pagefield" type = "text" placeholder="Page No."> 
-                    <button id = "searchbyname" onclick="searchMovies()">Search!</button>
-                </p></div>
-                <div><p>
-                    Search By Id: 
-                    <input id = "idfield" type = "text" placeholder="Movie ID Here..">
-                    <button id = "searchbyid" onclick="searchMoviesID()">Search!</button>
-                </p></div>
+            <div id = "searchbox">
+                <div>
+                    <p>
+                        Search By Title: 
+                        <input id = "titlefield" type = "text" placeholder="Movie Title Here..">
+                        <input id = "pagefield" type = "text" placeholder="Page No."> 
+                        <button id = "searchbyname" onclick="searchMovies()">Search!</button>
+                    </p>
+                </div>
+                <div>
+                    <p>
+                        Search By Id: 
+                        <input id = "idfield" type = "text" placeholder="Movie ID Here..">
+                        <button id = "searchbyid" onclick="searchMoviesID()">Search!</button>
+                    </p>
+                </div>
             </div>
             <div id="main">
                 <div id = "movieprev"></div>

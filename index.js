@@ -68,7 +68,7 @@ function searchMovies() {
 }
 
 function searchMoviesID() {
-    const query = document.getElementById('idfield').value;
+    var query = document.getElementById('idfield').value;
     if (query !== '') {
         displayMovieDetails(query);
     }
@@ -98,7 +98,7 @@ function displayMovieDetails(movieID) {
             <p><strong>Cast:</strong> ${data.Actors}</p>
             <p><i class="fa-solid fa-star" style="color: #f2de02;"></i><strong>Rating:</strong> ${data.imdbRating}</p>
             <p><strong>Release Date:</strong> ${data.Released}</p>
-            <p></p>
+            <p class = "empty"></p>
             <p><input id = "reviewInp" type = "text" placeholder = "Give Review"><button onclick = "addreview(${data.imdbID})">Add Review</button></p>
         `;
         })

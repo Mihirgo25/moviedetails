@@ -2,6 +2,11 @@ body{
     background-image: linear-gradient(to bottom right, aquamarine, #00CED1);
 }
 
+#searchbox {
+    display: flex; 
+    flex-direction: row;
+}
+
 #searchbox div{
     margin-left: 60px;
     margin-right: 60px;
@@ -43,4 +48,108 @@ body{
 
 #moviedet h3{
     text-align: center;
+}
+
+@media only screen and (max-width: 530px) and (min-width: 410px) {
+    #searchbox div{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+    #main {
+        display: grid;
+        grid-template-columns: 150px 150px 150px;
+    }
+    
+    .movie-poster{
+        width: 80px;
+        height: 150px;
+    }
+    
+    #main div img{
+        margin-left: 25px;
+    }
+    #main div{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #main div h2{
+        text-align: center;
+    }
+    
+    #moviedet{
+        display: grid;
+        grid-template-columns: 150px 150px 150px;
+        padding-top: 15px;
+    }
+    
+    #moviedet img{
+        margin-left: 15px;
+    }
+    #moviedet p{
+        text-align: center;
+    }
+    
+    #moviedet h3{
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    #searchbox div{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    #searchbox {
+        display: flex; 
+        flex-direction: column;
+    }
+    
+    #main {
+        display: grid;
+        grid-template-columns: 100px 100px;
+    }
+    
+    .movie-poster{
+        width: 80px;
+        height: 150px;
+    }
+    
+    #main div img{
+        margin-left: 25px;
+    }
+    #main div{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
+    }
+    #main div h2{
+        margin: 20px;
+        text-align: center;
+        font-size: x-small;
+    }
+    
+    #moviedet{
+        display: grid;
+        grid-template-columns: 100px 100px;
+        padding-top: 5px;
+    }
+    
+    #moviedet img{
+        margin-left: 5px;
+        width: 100px;
+        height: 180px;
+    }
+    #moviedet p{
+        text-align: center;
+    }
+    
+    #moviedet h3{
+        text-align: center;
+        font-size: x-small;
+    }
+    #moviedet .empty{
+        display: none;
+    }
 }
