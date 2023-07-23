@@ -56,19 +56,17 @@ function searchMovies() {
     var pageInp = document.getElementById('pagefield');
     var query = queryInp.value;
     var page = pageInp.value;
-    currpageno = parseInt(page);
-    prevpageno = currpageno - 1;
-    nextpageno = currpageno + 1;
-    if (query !== '') {
-        if(page == ''){
-            page = "1";
-        }
-        
-    }
-    else{
+    
+    if (query == '') {
         query = "One Piece";
     }
-    fetchMovies(query, page);
+    currpageno = parseInt(page,10);
+    if(page == ''){
+        currpageno = 1;
+    }
+    prevpageno = currpageno - 1;
+    nextpageno = currpageno + 1;
+    fetchMovies(query, currpageno);
 }
 
 function fetchMovies(query, page) {
@@ -102,6 +100,7 @@ function displayMovies(movies) {
         movieItem.innerHTML = `
         <img class="movie-poster" src="${movie.Poster}" alt="${movie.Title}">
         <h2>${movie.Title}</h2>
+        <h4>${movie.Year}</h4>
         `;
         movieItem.addEventListener('click', function () {
             currentMovieID = movie.imdbID;
@@ -150,11 +149,11 @@ function gotonext(){
     currpageno++;
     nextpageno++;
     prevpageno++;
-
-    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}&page=${currpageno}`;
     if (query == '') {
-        const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=One_Piece&page=${currpageno}`;
+        query = "One Piece";
     }
+    const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}&page=${currpageno}`;
+
     fetch(url)
         .then(response => response.json())
         .then(data => {
