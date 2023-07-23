@@ -9,7 +9,12 @@ body{
 
 #searchbox div{
     margin-left: 60px;
-    margin-right: 60px;
+    margin-right: 30px;
+}
+
+#searchbox div button{
+    height: 30px;
+    margin-right: 10px;
 }
 
 #main {
