@@ -3,6 +3,7 @@ var prevpageno = 0;
 var nextpageno = 0;
 var currpageno = 0;
 let usermovielist = new Map();
+var id = 0;
 
 function searchMoviesID() {
     var query = document.getElementById('idfield').value;
@@ -17,6 +18,7 @@ function searchMoviesID() {
 
 function displayMovieDetails(movieID) {
     const url = `http://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}`;
+    id = movieID;
 
     fetch(url)
         .then(response => response.json())
@@ -34,7 +36,7 @@ function displayMovieDetails(movieID) {
             <p><i class="fa-solid fa-star" style="color: #f2de02;"></i><strong>Rating:</strong> ${data.imdbRating}</p>
             <p><strong>Release Date:</strong> ${data.Released}</p>
             <p class = "empty"></p>
-            <p><input id = "reviewInp" type = "text" placeholder = "Give Review"><button onclick = "addreview(${data.imdbID})">Add Review</button></p>
+            <p><input id = "reviewInp" type = "text" placeholder = "Give Review"><button onclick = "addreview()">Add Review</button></p>
         `;
         })
         .catch(err => {
@@ -43,12 +45,11 @@ function displayMovieDetails(movieID) {
 
 }
 
-function addreview(value){
+function addreview(){
     const reviewInput = document.getElementById('reviewInp');
-    const review = reviewInput.value();
-    usermovielist.set(value, review);
-    const movieDetailsElement = document.getElementById('moviedet');
-    movieDetailsElement.innerHTML += `<p>User Review: ${userreviews.get(value)}</p>`
+    const review = reviewInput.value;
+    usermovielist.set(id, review);
+    console.log(usermovielist);
 }
 
 function searchMovies() {
