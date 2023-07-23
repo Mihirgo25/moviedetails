@@ -1,3 +1,13 @@
+body{
+    background-image: linear-gradient(to bottom right, aquamarine, #00CED1);
+    height: 95vh;
+}
+
+#searchbox div{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
 #main {
     display: grid;
     grid-template-columns: 400px 400px 400px;
@@ -6,4 +16,31 @@
 .movie-poster{
     width: 250px;
     height: 400px;
+}
+
+#main div img{
+    margin-left: 75px;
+}
+#main div{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+#main div h2{
+    text-align: center;
+}
+
+#moviedet{
+    display: grid;
+    grid-template-columns: 400px 400px 400px;
+}
+
+#moviedet img{
+    margin-left: 50px;
+}
+#moviedet p{
+    text-align: center;
+}
+
+#moviedet h3{
+    text-align: center;
 }
