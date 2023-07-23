@@ -2,7 +2,8 @@ const apiKey = "61a2bc53";
 var prevpageno = 0;
 var nextpageno = 0;
 var currpageno = 0;
-let usermovielist = new Map();
+let userreviewlist = new Map();
+let userratelist = new Map();
 var id = 0;
 
 function searchMoviesID() {
@@ -35,8 +36,9 @@ function displayMovieDetails(movieID) {
             <p><strong>Cast:</strong> ${data.Actors}</p>
             <p><i class="fa-solid fa-star" style="color: #f2de02;"></i><strong>Rating:</strong> ${data.imdbRating}</p>
             <p><strong>Release Date:</strong> ${data.Released}</p>
-            <p class = "empty"></p>
             <p><input id = "reviewInp" type = "text" placeholder = "Give Review"><button onclick = "addreview()">Add Review</button></p>
+            <p class = "empty"></p>
+            <p><input id = "rateInp" type = "text" placeholder = "Give Rating"><button onclick = "addrating()">Add Rating</button></p>
         `;
         })
         .catch(err => {
@@ -48,8 +50,19 @@ function displayMovieDetails(movieID) {
 function addreview(){
     const reviewInput = document.getElementById('reviewInp');
     const review = reviewInput.value;
-    usermovielist.set(id, review);
-    console.log(usermovielist);
+    userreviewlist.set(id, review);
+    console.log(userreviewlist);
+    localStorage.setItem("userreviewlist", JSON.stringify(userreviewlist));
+    reviewInput.value = "";
+}
+
+function addrating(){
+    const rateInput = document.getElementById('rateInp');
+    const rate = rateInput.value;
+    userratelist.set(id, rate);
+    console.log(userratelist);
+    localStorage.setItem("userratelist", JSON.stringify(userratelist));
+    rateInput.value = "";
 }
 
 function searchMovies() {
